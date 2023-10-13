@@ -1,20 +1,56 @@
+using System;
+using System.Collections.Generic;
 using Xunit;
-using WeightedAverageLibrary;
 
-public class WeightedAverageCalculatorTests
+public class TipCalculatorTests
 {
     [Fact]
-    public void CalculateWeightedAverage_ValidInput_ShouldReturnCorrectValue()
+    public void CalculateTipPerPerson_ValidInput_ShouldReturnCorrectAmount()
     {
         // Arrange
-        var calculator = new WeightedAverageCalculator();
-        var values = new double[] { 4.5, 3.2, 2.7 };
-        var weights = new double[] { 0.3, 0.2, 0.5 };
+        var calculator = new TipCalculator();
+        decimal totalPrice = 100.0m;
+        int numberOfPatrons = 4;
+        float tipPercentage = 15.0f;
 
         // Act
-        var result = calculator.CalculateWeightedAverage(values, weights);
+        var tipPerPerson = calculator.CalculateTipPerPerson(totalPrice, numberOfPatrons, tipPercentage);
 
         // Assert
-        Assert.Equal(3.29, result, 2); // The third argument is the precision (number of decimal places)
+        Assert.Equal(3.75m, tipPerPerson);
+    }
+
+    [Fact]
+    public void CalculateTipForEachPerson_ValidInput_ShouldReturnCorrectTipAmounts()
+    {
+        // Arrange
+        var calculator = new TipCalculator();
+        var mealCosts = new Dictionary<string, decimal>
+        {
+            {"Alice", 20.0m},
+            {"Bob", 30.0m},
+            {"Charlie", 25.0m}
+        };
+        float tipPercentage = 10.0f;
+
+        // Act
+        var tipAmounts = calculator.CalculateTipForEachPerson(mealCosts, tipPercentage);
+
+        // Assert
+        Assert.Equal(4.0m, tipAmounts["Alice"]);
+        Assert.Equal(6.0m, tipAmounts["Bob"]);
+        Assert.Equal(5.0m, tipAmounts["Charlie"]);
+    }
+
+    [Fact]
+    public void CalculateTipForEachPerson_EmptyMealCosts_ShouldThrowException()
+    {
+        // Arrange
+        var calculator = new TipCalculator();
+        var mealCosts = new Dictionary<string, decimal>();
+        float tipPercentage = 15.0f;
+
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => calculator.CalculateTipForEachPerson(mealCosts, tipPercentage));
     }
 }
