@@ -1,0 +1,7 @@
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeightedAverageLibrary", "WeightedAverageLibrary\WeightedAverageLibrary.csproj", "{YOUR_CLASS_LIBRARY_PROJECT_GUID}"
+EndProject
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeightedAverageSolution", "WeightedAverageSolution\WeightedAverageSolution.csproj", "{YOUR_SOLUTION_PROJECT_GUID}"
+ProjectSection(ProjectDependencies) = postProject
+EndProjectSection
+EndProject
